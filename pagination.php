@@ -1,0 +1,76 @@
+<?php
+// Below is optional, remove if you have already connected to your database.
+$mysqli = mysqli_connect('127.0.0.1', 'root', '', 'laravelblog');
+
+// Get the total number of records from our table "students".
+$total_pages = $mysqli->query('SELECT * FROM posts')->num_rows;
+
+// Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
+$page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
+
+// Number of results to show on each page.
+$num_results_on_page = 5;
+
+if ($stmt = $mysqli->prepare('SELECT * FROM posts ORDER BY id LIMIT ?,?')) {
+	// Calculate the page to get the results we need from our table.
+	$calc_page = ($page - 1) * $num_results_on_page;
+	$stmt->bind_param('ii', $calc_page, $num_results_on_page);
+	$stmt->execute();
+	// Get the results...
+	$result = $stmt->get_result();
+?>
+<?php require_once "layout/header.php" ?>
+
+<div id="load" class="container">
+	<h2 style="text-align: left;">Posts list</h2> <br>
+	<table class="table-hover">
+		<tr>
+			<th class="col-3">title</th>
+			<th class="col-3">description</th>
+			<th class="col-2">image</th>
+		</tr>
+		<?php while ($row = $result->fetch_assoc()) : ?>
+			<tr>
+				<td><?php echo $row['title']; ?></td>
+				<td><?php echo $row['description']; ?></td>
+				<td> <img style="width: 150px" src="<?php echo $row['image_path']; ?>"> </td>
+			</tr>
+		<?php endwhile; ?>
+	</table>
+	<?php if (ceil($total_pages / $num_results_on_page) > 0) : ?>
+		<ul class="pagination">
+			<?php if ($page > 1) : ?>
+				<li class="prev"><a class="nav-link" href="pagination.php?page=<?php echo $page - 1 ?>">Prev</a></li>
+			<?php endif; ?>
+
+			<?php if ($page > 3) : ?>
+				<li class="start"><a class="nav-link" href="pagination.php?page=1">1</a></li>
+				<li class="dots"><a>...</a></li>
+			<?php endif; ?>
+
+			<?php if ($page - 2 > 0) : ?><li class="page"><a class="nav-link" href="pagination.php?page=<?php echo $page - 2 ?>"><?php echo $page - 2 ?></a></li><?php endif; ?>
+			<?php if ($page - 1 > 0) : ?><li class="page"><a class="nav-link" href="pagination.php?page=<?php echo $page - 1 ?>"><?php echo $page - 1 ?></a></li><?php endif; ?>
+
+			<li class="currentpage"><a class="nav-link" href="pagination.php?page=<?php echo $page ?>"><?php echo $page ?></a></li>
+
+			<?php if ($page + 1 < ceil($total_pages / $num_results_on_page) + 1) : ?><li class="page"><a class="nav-link" href="pagination.php?page=<?php echo $page + 1 ?>"><?php echo $page + 1 ?></a></li><?php endif; ?>
+			<?php if ($page + 2 < ceil($total_pages / $num_results_on_page) + 1) : ?><li class="page"><a class="nav-link" href="pagination.php?page=<?php echo $page + 2 ?>"><?php echo $page + 2 ?></a></li><?php endif; ?>
+
+			<?php if ($page < ceil($total_pages / $num_results_on_page) - 2) : ?>
+				<li class="dots"><a>...</a></li>
+				<li class="end"><a class="nav-link" href="pagination.php?page=<?php echo ceil($total_pages / $num_results_on_page) ?>"><?php echo ceil($total_pages / $num_results_on_page) ?></a></li>
+			<?php endif; ?>
+
+			<?php if ($page < ceil($total_pages / $num_results_on_page)) : ?>
+				<li class="next"><a class="nav-link" href="pagination.php?page=<?php echo $page + 1 ?>">Next</a></li>
+			<?php endif; ?>
+		</ul>
+	<?php endif; ?>
+</div>
+	
+<?php require_once "layout/footer.php" ?>
+<?php
+	$stmt->close();
+}
+?>
+<script></script>
