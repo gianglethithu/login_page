@@ -14,8 +14,8 @@
                 <p class="error"><?php echo $error['error']; ?>  </p>
               <?php } ?>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput" placeholder="Username" name="uname">
-                <label for="floatingInput">Username</label>
+                <input type="email" class="form-control" id="floatingInput" placeholder="Username" name="email">
+                <label for="floatingInput">Email</label>
               </div>
               <div class="form-floating mb-3">
                 <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="pass">

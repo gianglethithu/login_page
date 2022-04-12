@@ -1,28 +1,27 @@
 <?php
 include "dbconnect.php";
-    if(isset($_POST['uname']) && isset($_POST['pass'])){
+    if(isset($_POST['email']) && isset($_POST['pass'])){
         function validate($data){
             $data = trim($data);
             $data = stripslashes($data);
             $data = htmlspecialchars($data);
             return $data;
         }
-        $uname = validate($_POST['uname']);
+        $email = validate($_POST['email']);
         $pass = validate($_POST['pass']);
         $error = "";
 
-        if(empty($uname)){
+        if(empty($email)){
             $error = ['error'=> 'Username is required'];
         }else if(empty($pass)){
             $error = ['error'=> 'Password is required'];
         }else{
-            $sql = "SELECT * FROM users WHERE name='$uname' AND password='$pass' ";
+            $sql = "SELECT * FROM employees WHERE email='$email' AND password='$pass' ";
             $result = mysqli_query($conn, $sql);
             if(mysqli_num_rows($result)===1){
-                header("location: pagination.php");
+                header("location: product.php");
             }else{
                 $error = ['error'=> 'Incorrect username or password '];
             }
         }
     }
-    ?>

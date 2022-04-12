@@ -5,5 +5,5 @@
 <script type="text/javascript" src="../login/js/jquery.min.js"></script>
 <script type="text/javascript" src="../login/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../login/js/redirect.js"></script>
-
+<!-- <script type="text/javascript" src="../login/js/product.js"></script> -->
 </html>
