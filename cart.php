@@ -1,8 +1,6 @@
 <?php
 include 'dbconnect.php';
 require_once 'layout/header.php';
-require 'cart-item.php';
-
 ?>
 
 
@@ -13,47 +11,30 @@ require 'cart-item.php';
 
     $total = 0;
 
-    foreach ($cart as $c) {
-        $total += $c->product->price * $c->quantity;
+    foreach ($cart as $c_item) {
+        $total += $c_item->product->price * $c_item->quantity;
     ?>
         <div class="row">
             <div class="col-md-12">
                 <div class="card" style="height: 200px;">
                     <div class="card-body">
-                        <h5 class="card-title"><?php echo $c->product->title; ?></h5>
-                        <p class="card-text"><?php echo $c->product->price * $c->quantity; ?></p>
+                        <h5 class="card-title"><?php echo $c_item->product->title; ?></h5>
+                        <p class="card-text"><?php echo $c_item->product->price * $c_item->quantity; ?></p>
                         <div style="float: right; margin-left:10px;" class="remove-cart-item btn btn-danger">
-                            <input class="remove-cart-item btn btn-danger" type="button" data-id="<?php echo $c->productCode; ?>" value="X">
+                            <input class="remove-cart-item btn btn-danger" type="button" data-id="<?php echo $c_item->productCode; ?>" value="X">
                         </div>
-                        <div style="float: right;" class="update-cart">
-                            <input type="hidden" name="update">
-                            <input type="number" name="quantity[]" min="1" value="<?php echo $c->quantity; ?>">
+                        <div style="float: right;" >
+                            <input type="number" name="" class="cart-qty-single" data-item-id="<?php echo $c_item->productCode; ?>" min="1" value="<?php echo $c_item->quantity; ?>">
                         </div>
-                        <!-- <form class="remove-cart-item" method="POST" style="float: right; margin-left:10px;"> -->
-                        <!-- action="delete-cart.php" -->
-                        <!-- <input type="hidden" name="productId" value="">
-                            <button type="submit" class="btn btn-danger" value="Delete from cart">X</button>
-                        </form> -->
-                        <!-- <form method="POST" style="float: right; margin-left:10px;"> -->
-                            <!-- action="delete-cart.php" -->
-                            <!-- <input type="hidden" name="productId" value=""> -->
-                            <!-- <input id="remove-cart-item" type="button" data-id="" class="btn btn-danger" value="Delete from cart"> -->
-
-                        <!-- </form> -->
-                        
                     </div>
                 </div>
             </div>
         </div>
     <?php }
     ?>
-    <!-- <form class="update-cart" method="POST" style="float: right;">
-        <!-- action="update-cart.php" 
-        <input type="number" class="update-cart-quantity<php echo $c->productCode; >" name="quantity" min="1" placeholder="<php echo $c->quantity; ?>">
-        <input type="hidden" class="productCode" name="productId" value="<php echo $c->productCode; ?>">
-        <input type="submit" class="btn btn-warning" value="Update">
-    </form> -->
+
     <p><?php echo $total; ?></p>
+    <div><a href="pagination.php">Back to products page</a></div>
 </div>
 
 <?php require_once 'layout/footer.php'; ?>

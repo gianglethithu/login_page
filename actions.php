@@ -39,9 +39,25 @@ if (isset($_POST['removeCartItem'])) {
   setcookie("cart", json_encode($new_cart));
 }
 
-if (isset($_POST['updateCart'])) {
-  $productCode = $_POST["updateCart"];
-  $quantity = $_POST["quantity"];
+// if (isset($_POST['updateCart'])) {
+//   $productCode = $_POST["updateCart"];
+//   $quantity = $_POST["quantity"];
+
+//   $cart = isset($_COOKIE["cart"]) ? $_COOKIE["cart"] : "[]";
+//   $cart = json_decode($cart);
+
+//  foreach ($cart as $c ) {
+//     if ($c->productCode == $productCode) {
+//         $c->quantity = $quantity;
+//     }
+// }
+
+//   setcookie("cart", json_encode($cart));
+// }
+
+if (isset($_POST['action']) && $_POST['action']=='update-qty') {
+  $productCode = $_POST["itemID"];
+  $quantity = $_POST["qty"];
 
   $cart = isset($_COOKIE["cart"]) ? $_COOKIE["cart"] : "[]";
   $cart = json_decode($cart);

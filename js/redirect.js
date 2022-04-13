@@ -123,23 +123,36 @@ $(document).ready(function () {
 //     }
 //   });
 // });
-$('form.update-cart').submit(function (event) {
-  event.preventDefault();
+// $('form.update-cart').submit(function (event) {
+//   event.preventDefault();
   
-  var productCode = $('.productCode').val();
-  var quantity = $('.update-cart-quantity'+productCode).val();
-  alert(productCode);
-  alert(quantity);
+//   var productCode = $('.productCode').val();
+//   var quantity = $('.update-cart-quantity'+productCode).val();
+//   alert(productCode);
+//   alert(quantity);
+//   $.ajax({
+//     type: "POST",
+//     url: "actions.php",
+//     data: {
+//       updateCart:productCode,
+//       quantity:quantity
+//     },
+//     success: function (data) {
+//       location.reload();
+//     }
+//   });
+// });
+
+$(".cart-qty-single").change(function(){
+  let getItemID = $(this).data('item-id');
+  let qty = $(this).val();
   $.ajax({
-    type: "POST",
-    url: "actions.php",
-    data: {
-      updateCart:productCode,
-      quantity:quantity
-    },
-    success: function (data) {
-      location.reload();
-    }
+      type:'POST',
+      url:'actions.php',
+      data: {action:'update-qty', itemID: getItemID, qty: qty},
+      success:function(data){
+          location.reload();
+      }
   });
 });
 
