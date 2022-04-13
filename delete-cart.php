@@ -1,8 +1,6 @@
 <?php 
 
 $productCode = $_POST["productId"];
-$page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
-
 
 $cart = isset($_COOKIE["cart"]) ? $_COOKIE["cart"] : "[]";
 $cart = json_decode($cart);

@@ -12,7 +12,7 @@ include "dbconnect.php";
         $error = "";
 
         if(empty($email)){
-            $error = ['error'=> 'Username is required'];
+            $error = ['error'=> 'Email is required'];
         }else if(empty($pass)){
             $error = ['error'=> 'Password is required'];
         }else{

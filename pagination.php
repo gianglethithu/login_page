@@ -58,15 +58,18 @@ if ($stmt = $mysqli->prepare('SELECT * FROM books ORDER BY id LIMIT ?,?')) {
 					<td><?php echo $row['price']; ?></td>
 					<td>
 						<?php if($flag){ ?>
-							<form action="delete-cart.php" method="POST">
-								<input type="hidden" name="productId" value="<?php echo $row['id'] ?>">
-								<input type="submit" class="btn btn-danger" value="Delete from cart">
+							<form  method="POST">
+							<!-- action="delete-cart.php" -->
+								<!-- <input type="hidden" name="productId" value="\"> -->
+								<input class="remove-cart-item btn btn-danger" type="button" data-id="<?php echo $row['id']; ?>" value="Delete from cart">
 							</form>
 					<?php } else { ?>
-						<form action="add-cart.php" method="POST">
-							<input type="hidden" name="quantity" value="1">
-							<input type="hidden" name="productId" value="<?php echo $row['id']; ?>">
-							<input type="submit" class="btn btn-primary" value="Add to cart">
+						<form    method="POST">
+						<!-- action="add-cart.php"class="add-to-cart" -->
+							<!-- <input type="hidden" name="quantity" value="1">
+							<input type="hidden" name="productId" value="
+							 -->
+							<input class="add-to-cart btn btn-primary " type="button" data-id="<?php echo $row['id']; ?>" data-quantity="1" value="Add to cart">
 						</form>
 						<?php } ?>
 					</td>
