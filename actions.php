@@ -71,3 +71,13 @@ if (isset($_POST['action']) && $_POST['action']=='update-qty') {
   setcookie("cart", json_encode($cart));
 }
 
+if(isset($_POST['update'])) {
+	$arrQuantity = $_POST['update'];
+    $cart = isset($_COOKIE["cart"]) ? $_COOKIE["cart"] : "[]";
+    $cart = json_decode($cart);
+
+    for($i = 0; $i < count ( $cart ); $i ++) {
+        $cart[$i]->quantity = $arrQuantity[$i];
+    }
+    setcookie("cart", json_encode($cart));
+}

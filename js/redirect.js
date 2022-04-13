@@ -68,23 +68,23 @@ $(document).ready(function () {
     });
   });
 
-  // $('#update-cart').click(function (e) {
-  //   e.preventDefault();
-  //   var productId = $(this).attr('data-id');
-  //   var quantity = document.getElementById('update-cart-quan').value;
-  //   $.ajax({
-  //     url: 'actions.php',
-  //     method: 'POST',
-  //     data: {
-  //       updateCart: productId,
-  //       quantity: quantity
-  //     },
-  //     success: function (data) {
-  //       // console.log(data);
-  //       location.reload();
-  //     }
-  //   });
-  // });
+  $('.update-cart').click(function (e) {
+    e.preventDefault();
+    var quan = [];
+   document.getElementsByName('quantity[]').forEach(quantity => {quan.push(quantity.value)});
+    // alert(quan);
+    $.ajax({
+      url: 'actions.php',
+      method: 'POST',
+      data: {
+        update: quan
+      },
+      success: function (data) {
+        // console.log(data);
+        location.reload();
+      }
+    });
+  });
 
 // });
 // $('form.add-to-cart').submit(function (event) {
