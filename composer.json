@@ -1,6 +1,7 @@
 {
     "require": {
         "phpunit/phpunit": "^9.5",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "php-ds/php-ds": "^1.4"
     }
 }

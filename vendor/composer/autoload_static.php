@@ -33,6 +33,7 @@ class ComposerStaticInita4133d9bd407d889b8b92ddd1fb21271
         ),
         'D' => 
         array (
+            'Ds\\' => 3,
             'Doctrine\\Instantiator\\' => 22,
             'DeepCopy\\' => 9,
         ),
@@ -64,6 +65,10 @@ class ComposerStaticInita4133d9bd407d889b8b92ddd1fb21271
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
+        ),
+        'Ds\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-ds/php-ds/src',
         ),
         'Doctrine\\Instantiator\\' => 
         array (

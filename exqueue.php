@@ -1,5 +1,5 @@
 <?php 
-
+include "vendor/autoload.php";
 $newqueue = new SplQueue();
 $newqueue->enqueue("Books");
 $newqueue->enqueue("is");
@@ -14,8 +14,10 @@ $newqueue->dequeue();
 $newqueue->dequeue();
 print_r($newqueue);
 
-$queue = new \Ds\Queue();
+$queue = new Ds\Queue();
 $queue->push("a");
 $queue->push("bc");
+print_r($queue);
+$queue->pop();
 print_r($queue);
 ?>
