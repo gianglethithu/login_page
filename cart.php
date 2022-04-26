@@ -1,8 +1,6 @@
 <?php
 include 'dbconnect.php';
 require_once 'layout/header.php';
-
-
 ?>
 
 
@@ -27,7 +25,7 @@ require_once 'layout/header.php';
                         </div>
                         <div style="float: right;" >
                             <!-- <input type="number" name="" class="cart-qty-single" data-item-id="<php echo $c_item->productCode; ?>" min="1" value="<php echo $c_item->quantity; ?>"> -->
-                            <input type="number" name="quantity[]" value="<?php echo $c_item->quantity; ?>">
+                            <input type="number" name="quantity[]" value="<?php echo $c_item->quantity; ?>" min="1">
                         </div>
                     </div>
                 </div>
@@ -38,7 +36,7 @@ require_once 'layout/header.php';
         <input name="update" type="button" id="btnUpdate" value="Update Cart" class="box update-cart"></td>
     </div>
     <p><?php echo $total; ?></p>
-    <div><a href="pagination.php">Back to products page</a></div>
+    <div><a href="product_redis.php">Back to products page</a></div>
 </div>
 
 <?php require_once 'layout/footer.php';?>

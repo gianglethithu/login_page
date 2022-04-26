@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "dbconnect.php";
     if(isset($_POST['email']) && isset($_POST['pass'])){
         function validate($data){
@@ -17,7 +18,15 @@ include "dbconnect.php";
             $error = ['error'=> 'Password is required'];
         }else{
             $sql = "SELECT * FROM employees WHERE email='$email' AND password='$pass' ";
-            $result = mysqli_query($conn, $sql);
+            $stmt = $mysqli->prepare($sql);
+            $stmt->bind_param('s', $email);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            // $result = mysqli_query($conn, $sql);
+            while($row = $result->fetch_assoc()){
+                $_SESSION['user']['id'] = $row['id'];
+                
+            }
             if(mysqli_num_rows($result)===1){
                 header("location: product.php");
             }else{

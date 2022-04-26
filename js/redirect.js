@@ -1,43 +1,21 @@
-$(document).on('click', 'a.nav-link', function (e) {
 
-  e.preventDefault();
-  var pageURL = $(this).attr('href');
-
-  history.pushState(null, '', pageURL);
-
-
-  $.ajax({
-    type: "GET",
-    url: "page-content.php",
-    data: {
-      page: pageURL
-    },
-    dataType: "html",
-    success: function (data) {
-      $("#load").load(data);
-      $('#pageContent').html(data);
-
-    }
-
-  });
-});
-
-function getVal() {
-  const val = document.querySelector('input').value;
-  console.log(val);
-}
-// function getFormData(form) {
-//   var rawJson = form.serializeArray();
-//   var model = {};
-  
-//   $.map(rawJson, function (n, i) {
-//       model[n['name']] = n['value'];
-//   });
-  
-//   return model;
-//   }
 $(document).ready(function () {
 // alert("???")
+  $('a.nav-link').click(function(e){
+    e.preventDefault();
+    var pageURL = $(this).attr('href');
+    history.pushState(null, '', pageURL);
+    $.ajax({
+      url: "page-content.php",
+      method: "GET",
+      data:{pageURL:pageURL},
+      success: function(data){
+        location.reload();
+      }
+    });
+  });
+
+
   $('.add-to-cart').click(function (e) {
     e.preventDefault();
     var productCode = $(this).attr('data-id');
@@ -79,6 +57,8 @@ $(document).ready(function () {
       data: {
         update: quan
       },
+        
+
       success: function (data) {
         // console.log(data);
         location.reload();

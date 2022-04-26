@@ -4,7 +4,8 @@ include "dbconnect.php";
 // add products to cart
 if (isset($_POST['addCart'])) {
   // $productId = $_POST['addCart'];
-  $conn = mysqli_connect('127.0.0.1', 'root', '', 'salebookonl');
+  $conn = mysqli_connect('127.0.0.1', 'root', 'Caydathan_81', 'salebookonl');
+ 
   
   $productCode = $_POST["addCart"];
   $quantity = $_POST["quantity"];

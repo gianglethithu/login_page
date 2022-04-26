@@ -3,25 +3,29 @@ include 'dbconnect.php';
 // $db = new Database();
 // $total_pages = $db->select('books','*',null ,null,null,null)->num_rows;
 // Below is optional, remove if you have already connected to your database.
-$mysqli = mysqli_connect('127.0.0.1', 'root', '', 'salebookonl');
-
+// $mysqli = mysqli_connect('127.0.0.1', 'root', 'Caydathan_81', 'salebookonl');
+$mysqli = new Database();
 // Get the total number of records from our table "students".
-$total_pages = $mysqli->query('SELECT * FROM books')->num_rows;
-
+$mysqli->select('books', '*',null, null,'id', null);
+$total_pages = count($mysqli->getResult());
 // Check if the page number is specified and check if it's a number, if not return the default page number which is 1.
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
-
+// $calc_page = ($page - 1) * $num_results_on_page;
 // Number of results to show on each page.
 $num_results_on_page = 5;
 
+$mysqli->select('books', '*', null, null, 'id', $num_results_on_page );
+$result = $mysqli->getResult();
 
-if ($stmt = $mysqli->prepare('SELECT * FROM books ORDER BY id LIMIT ?,?')) {
-	// Calculate the page to get the results we need from our table.
-	$calc_page = ($page - 1) * $num_results_on_page;
-	$stmt->bind_param('ii', $calc_page, $num_results_on_page);
-	$stmt->execute();
-	// Get the results...
-	$result = $stmt->get_result();
+
+// if ($stmt = $mysqli->prepare('SELECT * FROM books ORDER BY id LIMIT ?,?')) {
+// 	// Calculate the page to get the results we need from our table.
+// 	$calc_page = ($page - 1) * $num_results_on_page;
+// 	$stmt->bind_param('ii', $calc_page, $num_results_on_page);
+// 	$stmt->execute();
+// 	// Get the results...
+// 	$result = $stmt->get_result();
+
 
 ?>
 	<?php require_once "layout/header.php" ?>
@@ -43,7 +47,8 @@ if ($stmt = $mysqli->prepare('SELECT * FROM books ORDER BY id LIMIT ?,?')) {
 				<th class="col-1">price</th>
 				<th class="col-1"></th>
 			</tr>
-			<?php while ($row = $result->fetch_assoc()) : ?>
+			<?php 
+				foreach($result as $row):?>
 				<?php $flag = false;
 					foreach ($cart as $c ) {
 						if ($c->productCode == $row['id']) {
@@ -53,6 +58,16 @@ if ($stmt = $mysqli->prepare('SELECT * FROM books ORDER BY id LIMIT ?,?')) {
 					}
 				?>
 				<tr>
+				<!-- <php 
+					$output .= "<td>".$row['title']. "</td>
+								<td> <img style='width: 150px' src='".$row['avatar']."'> </td>
+								<td>".$row['price']."</td>";
+					$handle = fopen($cache,'w');
+					fwrite($handle, $output);
+					fclose($str);
+					echo $output;
+				?>
+				 -->
 					<td><?php echo $row['title']; ?></td>
 					<td> <img style="width: 150px" src="<?php echo $row['avatar']; ?>"> </td>
 					<td><?php echo $row['price']; ?></td>
@@ -74,7 +89,7 @@ if ($stmt = $mysqli->prepare('SELECT * FROM books ORDER BY id LIMIT ?,?')) {
 						<?php } ?>
 					</td>
 				</tr>
-			<?php endwhile; ?>
+			<?php  endforeach; ?>
 		</table>
 		<?php if (ceil($total_pages / $num_results_on_page) > 0) : ?>
 			<ul class="pagination">
@@ -109,7 +124,8 @@ if ($stmt = $mysqli->prepare('SELECT * FROM books ORDER BY id LIMIT ?,?')) {
 
 	<?php require_once "layout/footer.php" ?>
 <?php
-	$stmt->close();
-}
+
+	// $stmt->close();
+// }
 ?>
 <script></script>

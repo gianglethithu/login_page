@@ -4,7 +4,7 @@ class Database{
 
 		private $db_host = "127.0.0.1";  // Change as required
 		private $db_user = "root";       // Change as required
-		private $db_pass = "";   // Change as required
+		private $db_pass = "Caydathan_81";   // Change as required
 		private $db_name = "salebookonl";   // Change as required
 
 		private $result = array(); // Any results from a query will be stored here
@@ -157,7 +157,7 @@ class Database{
   }
 
    // FUNCTION to show pagination
-  public function pagination($table, $join = null, $where = null, $limit){
+  public function pagination($table, $join = null, $where = null, $limit=5){
   	// Check to see if table exists
   	if($this->tableExists($table)){
   		//If no limit is set then no pagination is available
